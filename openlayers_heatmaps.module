@@ -1,0 +1,30 @@
+<?php
+/**
+ * @file
+ * Main module file for the openlayers_heatmap module.
+ */
+
+/**
+ * Implements hook_ctools_plugins_api().
+ */
+function openlayers_heatmaps_ctools_plugin_api($module, $api) {
+  if ($module == "openlayers") {
+    switch ($api) {
+      case 'openlayers_layers':
+        return array('version' => 1);
+
+      case 'openlayers_behaviors':
+        return array('version' => 1);
+    }
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function openlayers_heatmaps_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'openlayers' && !empty($plugin)) {
+    return 'openlayers_plugins/' . $plugin;
+  }
+}
+
