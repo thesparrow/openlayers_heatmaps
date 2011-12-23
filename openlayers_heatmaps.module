@@ -11,8 +11,6 @@ function openlayers_heatmaps_ctools_plugin_api($module, $api) {
   if ($module == "openlayers") {
     switch ($api) {
       case 'openlayers_layers':
-        return array('version' => 1);
-
       case 'openlayers_behaviors':
         return array('version' => 1);
     }

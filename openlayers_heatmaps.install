@@ -5,12 +5,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openlayers_heatmaps_uninstall() {
-}
-
-/**
  * Implements hook_requirements().
  */
 function openlayers_heatmaps_requirements($phase) {
