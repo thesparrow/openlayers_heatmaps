@@ -2,3 +2,4 @@ name = Openlayers Heatmap Behavior
 description = Provide a new behavior, Heatmap, for Openlayer's maps.
 core = 7.x
 dependencies[] = openlayers
+dependencies[] = libraries
