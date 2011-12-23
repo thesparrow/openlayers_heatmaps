@@ -10,7 +10,7 @@
 function openlayers_heatmaps_requirements($phase) {
   $requirements = array();
 
-  // Ensure translations do not break at install time
+  // Ensure translations do not break at install time.
   $t = get_t();
 
   if ($phase == 'install' && !module_exists('libraries')) {

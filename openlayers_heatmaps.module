@@ -25,4 +25,3 @@ function openlayers_heatmaps_ctools_plugin_directory($module, $plugin) {
     return 'openlayers_plugins/' . $plugin;
   }
 }
-

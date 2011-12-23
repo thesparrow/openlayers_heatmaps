@@ -37,7 +37,7 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
   function options_form($defaults) {
     $form = parent::options_form(array());
 
-    // Only prompt for vector layers
+    // Only prompt for vector layers.
     $vector_layers = array();
     foreach ($this->map['layers'] as $id => $name) {
       $layer = openlayers_layer_load($id);
@@ -54,13 +54,13 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
         '#type' => 'fieldset',
         '#title' => t('Options for layer @layer', array('@layer' => $name)),
         '#collapsible' => TRUE,
-        '#collapsed' => FALSE
+        '#collapsed' => FALSE,
       );
       $form['layers'][$id]['layer'] = array(
         '#type' => 'checkbox',
         '#title' => t('Enable the Heatmap ?'),
-        '#description' => t('If selected, the layer will be replaced by it\'s Heatmap') . '<br/>(' . $layer->name . ': ' . $layer->description . ')',
-        '#default_value' => !empty($defaults['layers'][$id]['layer']) ? 1 : FALSE
+        '#description' => t("If selected, the layer will be replaced by it's Heatmap") . '<br/>(' . $layer->name . ': ' . $layer->description . ')',
+        '#default_value' => !empty($defaults['layers'][$id]['layer']) ? 1 : FALSE,
       );
       $form['layers'][$id]['radius'] = array(
         '#title' => t('Radius'),
@@ -92,7 +92,7 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
    * Render.
    */
   function render(&$map) {
-    // Add the heatmap library
+    // Add the heatmap.js library.
     if ($path = libraries_get_path('heatmap.js')) {
       drupal_add_js($path . '/src/heatmap.js');
       drupal_add_js($path . '/src/heatmap-openlayers.js');
