@@ -19,3 +19,4 @@ Contributors:
 -------------
 * Patrick Wied, author of the Heatmap.js library.
 * Antonio Santiago, fix and improved the Heatmap.js Openlayers integration.
+* Pol Dell'Aiera, author of the Drupal's module.
