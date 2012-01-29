@@ -18,7 +18,9 @@ Drupal.openlayers.addBehavior('openlayers_heatmaps_behavior', function (context,
   }
 
   // If no layer is selected, just return.
-  if (layers.length < 1) return;
+  if (layers.length < 1) {
+    return;
+  }
 
   for (var i in layers) {
     var layer = layers[i];
@@ -31,6 +33,7 @@ Drupal.openlayers.addBehavior('openlayers_heatmaps_behavior', function (context,
     var intensity = parseInt(layeroptions.intensity, 10);
     var opacity = parseInt(layeroptions.opacity, 10);
     var heatmapdata = { max:0, data:[] };
+    var heatmap;
 
     layer.events.on({featuresadded:function (evt) {
       for (var i in evt.features) {
