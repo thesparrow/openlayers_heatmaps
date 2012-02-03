@@ -59,7 +59,9 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
       $form['layers'][$id]['layer'] = array(
         '#type' => 'checkbox',
         '#title' => t('Enable the Heatmap ?'),
-        '#description' => t("If selected, the layer will be replaced by it's Heatmap") . '<br/>(' . $layer->name . ': ' . $layer->description . ')',
+        '#description' => t("If selected, the layer will be replaced by it's Heatmap") .
+            '<br/>(' . check_plain($layer->name) .
+            ': ' . check_plain($layer->description) . ')',
         '#default_value' => !empty($defaults['layers'][$id]['layer']) ? 1 : FALSE,
       );
       $form['layers'][$id]['radius'] = array(
