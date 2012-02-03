@@ -12,7 +12,8 @@ How to install:
 ---------------
 Install the Openlayers Heatmaps module as any other module.
 The module needs the heatmap.js library to work.
-You can download it and put it in the default Drupal's library folder.
+You can download it from http://www.patrick-wied.at/static/heatmapjs/ and
+put it in the default Drupal's library folder.
 You can also use the make file in the module to automatically download it.
 
 Contributors:
