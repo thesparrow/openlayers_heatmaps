@@ -69,18 +69,21 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
         '#type' => 'textfield',
         '#description' => t('Select radius (pixels) to apply to Heatmap circles.'),
         '#default_value' => isset($defaults['layers'][$id]['radius']) ? $defaults['layers'][$id]['radius'] : 20,
+        '#element_validate' => array('element_validate_integer_positive'),
       );
       $form['layers'][$id]['intensity'] = array(
         '#title' => t('Intensity'),
         '#type' => 'textfield',
         '#description' => t('Select the color intensity.'),
         '#default_value' => isset($defaults['layers'][$id]['intensity']) ? $defaults['layers'][$id]['intensity'] : 0.5,
+        '#element_validate' => array('element_validate_integer_positive'),
       );
       $form['layers'][$id]['opacity'] = array(
         '#title' => t('Opacity'),
         '#type' => 'textfield',
         '#description' => t('Select the opacity.'),
         '#default_value' => isset($defaults['layers'][$id]['opacity']) ? $defaults['layers'][$id]['opacity'] : 0.5,
+        '#element_validate' => array('element_validate_number'),
       );
     }
 
