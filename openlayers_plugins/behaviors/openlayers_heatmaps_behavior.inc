@@ -75,7 +75,7 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
         '#title' => t('Intensity'),
         '#type' => 'textfield',
         '#description' => t('Select the color intensity.'),
-        '#default_value' => isset($defaults['layers'][$id]['intensity']) ? $defaults['layers'][$id]['intensity'] : 0.5,
+        '#default_value' => isset($defaults['layers'][$id]['intensity']) ? $defaults['layers'][$id]['intensity'] : 1,
         '#element_validate' => array('element_validate_integer_positive'),
       );
       $form['layers'][$id]['opacity'] = array(
