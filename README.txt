@@ -10,14 +10,16 @@ Dependencies:
 
 How to install:
 ---------------
-Install the Openlayers Heatmaps module as any other module.
-The module needs the heatmap.js library to work.
-You can download it from http://www.patrick-wied.at/static/heatmapjs/ and
-put it in the default Drupal's library folder.
-You can also use the make file in the module to automatically download it.
+ 1. Install the Openlayers Heatmaps module as any other module.
+ 2. Install the heatmap.js library:
+   * Download it from http://www.patrick-wied.at/static/heatmapjs/ and put it
+     in Drupal's default libraries folder, OR
+   * Use the makefile in the module to automatically download it by running:
+     drush make --no-core -y --contrib-destination=. modules/contrib/openlayers_heatmaps/openlayers_heatmaps.make
+     from within the sites/all directory.
 
 Contributors:
 -------------
-* Patrick Wied, author of the Heatmap.js library.
-* Antonio Santiago, fix and improved the Heatmap.js Openlayers integration.
-* Pol Dell'Aiera, author of the Drupal's module.
+ * Patrick Wied, author of the Heatmap.js library.
+ * Antonio Santiago, fix and improved the Heatmap.js Openlayers integration.
+ * Pol Dell'Aiera, author of the Drupal's module.
