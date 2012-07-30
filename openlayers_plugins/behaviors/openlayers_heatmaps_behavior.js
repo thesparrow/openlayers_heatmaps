@@ -31,7 +31,7 @@ Drupal.openlayers.addBehavior('openlayers_heatmaps_behavior', function (context,
 
     var radius = parseInt(layeroptions.radius, 10);
     var intensity = parseInt(layeroptions.intensity, 10);
-    var opacity = parseInt(layeroptions.opacity, 10);
+    var opacity = parseFloat(layeroptions.opacity, 10);
     var heatmapdata = { max:0, data:[] };
     var heatmap;
 
