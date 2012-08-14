@@ -15,7 +15,7 @@ function openlayers_heatmaps_requirements($phase) {
   $library = libraries_get_libraries();
 
   $requirements['openlayers_heatmaps']['title'] = $t('Heatmap.js library');
-  if (isset($library['heatmap.js'])) {
+  if (isset($library['heatmaps.js'])) {
     $requirements['openlayers_heatmaps']['value'] = $t('Installed');
     $requirements['openlayers_heatmaps']['severity'] = REQUIREMENT_OK;
   }

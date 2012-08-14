@@ -64,18 +64,44 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
             ': ' . check_plain($layer->description) . ')',
         '#default_value' => !empty($defaults['layers'][$id]['layer']) ? 1 : FALSE,
       );
+      $form['layers'][$id]['hide_original'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Hide the source layer ?'),
+        '#description' => t("If selected, the source layer will not be displayed and will be available in the layer switcher."),
+        '#default_value' => !empty($defaults['layers'][$id]['hide_original']) ? 1 : FALSE,
+      );
+      $form['layers'][$id]['heatmap_name'] = array(
+        '#title' => t('Name of the Heatmap layer'),
+        '#type' => 'textfield',
+        '#description' => t('This will be the name displayed in the layer switcher.'),
+        '#default_value' => !empty($defaults['layers'][$id]['heatmap_name']) ? $defaults['layers'][$id]['heatmap_name'] : $layer->description . ' heatmap',
+      );
       $form['layers'][$id]['radius'] = array(
         '#title' => t('Radius'),
         '#type' => 'textfield',
         '#description' => t('Select radius (pixels) to apply to Heatmap circles.'),
-        '#default_value' => isset($defaults['layers'][$id]['radius']) ? $defaults['layers'][$id]['radius'] : 20,
+        '#default_value' => isset($defaults['layers'][$id]['radius']) ? $defaults['layers'][$id]['radius'] : 150,
         '#element_validate' => array('element_validate_integer_positive'),
       );
       $form['layers'][$id]['intensity'] = array(
         '#title' => t('Intensity'),
         '#type' => 'textfield',
         '#description' => t('Select the color intensity.'),
-        '#default_value' => isset($defaults['layers'][$id]['intensity']) ? $defaults['layers'][$id]['intensity'] : 1,
+        '#default_value' => isset($defaults['layers'][$id]['intensity']) ? $defaults['layers'][$id]['intensity'] : 200,
+        '#element_validate' => array('element_validate_integer_positive'),
+      );
+      $form['layers'][$id]['distance'] = array(
+        '#title' => t('Distance'),
+        '#type' => 'textfield',
+        '#description' => t('Select radius (pixels) to apply to Heatmap cluster.'),
+        '#default_value' => isset($defaults['layers'][$id]['distance']) ? $defaults['layers'][$id]['distance'] : 20,
+        '#element_validate' => array('element_validate_integer_positive'),
+      );
+      $form['layers'][$id]['threshold'] = array(
+        '#title' => t('Threshold'),
+        '#type' => 'textfield',
+        '#description' => t('Select threshold (pixels) to apply to Heatmap cluster.'),
+        '#default_value' => isset($defaults['layers'][$id]['threshold']) ? $defaults['layers'][$id]['threshold'] : NULL,
         '#element_validate' => array('element_validate_integer_positive'),
       );
       $form['layers'][$id]['opacity'] = array(
@@ -95,7 +121,7 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
    */
   function render(&$map) {
     // Add the heatmap.js library.
-    if ($path = libraries_get_path('heatmap.js')) {
+    if ($path = libraries_get_path('heatmaps.js')) {
       drupal_add_js($path . '/src/heatmap.js');
       drupal_add_js($path . '/src/heatmap-openlayers.js');
     }

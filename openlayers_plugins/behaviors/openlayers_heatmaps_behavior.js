@@ -27,45 +27,47 @@ Drupal.openlayers.addBehavior('openlayers_heatmaps_behavior', function (context,
 
     var layersoptions = options['layers'];
     var drupalID = layer.drupalID;
-    var layeroptions = layersoptions[drupalID]
+    var layeroptions = layersoptions[drupalID];
 
     var radius = parseInt(layeroptions.radius, 10);
     var intensity = parseInt(layeroptions.intensity, 10);
+    var distance = parseInt(layeroptions.distance, 10);
+    var threshold = parseInt(layeroptions.threshold, 10);
     var opacity = parseFloat(layeroptions.opacity, 10);
+    var visibility = layeroptions.hide_original;
+    var heatmap_name = layeroptions.heatmap_name;
     var heatmapdata = { max:0, data:[] };
     var heatmap;
 
-    layer.events.on({featuresadded:function (evt) {
-      for (var i in evt.features) {
-        var feature = evt.features[i];
-        if (feature.geometry.CLASS_NAME == "OpenLayers.Geometry.Collection") {
-          for (var j in feature.geometry.components) {
-            var component = feature.geometry.components[j];
-            var f = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(component.x, component.y));
-            var ll = new OpenLayers.LonLat(f.geometry.x, f.geometry.y);
-            heatmapdata.data.push({lonlat:ll, count:intensity});
-          }
+    heatmap = new OpenLayers.Layer.Heatmap(heatmap_name, map, layer,
+      {visible:true, radius:10},
+      {isBaseLayer:false, opacity:opacity, projection: map.getProjectionObject()});
+
+    var cluster = new OpenLayers.Strategy.Cluster({'distance':distance, 'threshold':threshold});
+    cluster.setLayer(layer);
+    cluster.features = layer.features.slice();
+    cluster.activate();
+    cluster.cluster();
+
+    for (var j in cluster.features) {
+      var feature = cluster.features[j];
+      if (feature.CLASS_NAME == 'OpenLayers.Feature.Vector') {
+        if (typeof feature.attributes.count == 'undefined') {
+          count = intensity;
         } else {
-          var f = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(feature.geometry.x, feature.geometry.y));
-          var ll = new OpenLayers.LonLat(f.geometry.x, f.geometry.y);
-          heatmapdata.data.push({lonlat:ll, count:intensity});
+          count = feature.attributes.count*intensity;
         }
+        heatmapdata.data.push({lonlat:new OpenLayers.LonLat(feature.geometry.x, feature.geometry.y), count:count});
       }
+    }
 
-      // Set the original layer to invisible.
-      evt.object.setVisibility(false);
+    heatmapdata.max = heatmapdata.data.length;
 
-      heatmapdata.max = heatmapdata.data.length
-
-      heatmap = new OpenLayers.Layer.Heatmap(layer.drupalID + '_heatmap', map, evt.object,
-          {visible:true, radius:radius},
-          {isBaseLayer:false, opacity:opacity, projection: map.getProjectionObject()});
-
-      map.addLayer(heatmap);
-      map.zoomToMaxExtent();
-      map.zoomIn();
-      heatmap.setDataSet(heatmapdata);
-    }});
+    if (visibility == 1) {
+      layer.setVisibility(false);
+    }
+    map.addLayer(heatmap);
+    heatmap.setDataSet(heatmapdata);
   }
 
 
