@@ -35,6 +35,7 @@ Drupal.openlayers.addBehavior('openlayers_heatmaps_behavior', function (context,
     var opacity = parseFloat(layeroptions.opacity, 10);
     var visibility = layeroptions.hide_original;
     var heatmap_name = layeroptions.heatmap_name;
+    var enable_cluster = layeroptions.enable_cluster;
 
     var heatmapdata = { max:0, data:[] };
 
@@ -43,10 +44,16 @@ Drupal.openlayers.addBehavior('openlayers_heatmaps_behavior', function (context,
       {isBaseLayer:false, opacity:opacity, projection: map.getProjectionObject()});
 
     var cluster = new OpenLayers.Strategy.Cluster({'distance':distance, 'threshold':threshold});
-    cluster.setLayer(layer);
     cluster.features = layer.features.slice();
-    cluster.activate();
-    cluster.cluster();
+    if (enable_cluster == 1) {
+      layer.addOptions({ 'strategies': [cluster] });
+      cluster.setLayer(layer);
+      cluster.activate();
+      cluster.cluster();
+    }
+    if (visibility == 1) {
+      layer.setVisibility(false);
+    }
 
     for (var j in cluster.features) {
       var feature = cluster.features[j];
@@ -61,10 +68,6 @@ Drupal.openlayers.addBehavior('openlayers_heatmaps_behavior', function (context,
     }
 
     heatmapdata.max = heatmapdata.data.length;
-
-    if (visibility == 1) {
-      layer.setVisibility(false);
-    }
     heatmap.setDataSet(heatmapdata);
     map.addLayer(heatmap);
   }

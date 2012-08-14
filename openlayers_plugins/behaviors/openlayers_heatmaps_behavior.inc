@@ -76,6 +76,12 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
         '#description' => t('This will be the name displayed in the layer switcher.'),
         '#default_value' => !empty($defaults['layers'][$id]['heatmap_name']) ? $defaults['layers'][$id]['heatmap_name'] : $layer->description . ' heatmap',
       );
+      $form['layers'][$id]['enable_cluster'] = array(
+        '#title' => t('Enable the cluster on the original layer ?'),
+        '#type' => 'checkbox',
+        '#description' => t('If selected, the original layer will use a cluster strategy.'),
+        '#default_value' => !empty($defaults['layers'][$id]['enable_cluster']) ? 1 : FALSE,
+      );
       $form['layers'][$id]['radius'] = array(
         '#title' => t('Radius'),
         '#type' => 'textfield',
@@ -107,7 +113,7 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
       $form['layers'][$id]['opacity'] = array(
         '#title' => t('Opacity'),
         '#type' => 'textfield',
-        '#description' => t('Select the opacity.'),
+        '#description' => t('Select the opacity, between 0 and 1.'),
         '#default_value' => isset($defaults['layers'][$id]['opacity']) ? $defaults['layers'][$id]['opacity'] : 0.5,
         '#element_validate' => array('element_validate_number'),
       );
