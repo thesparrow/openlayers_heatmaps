@@ -121,7 +121,7 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
    */
   function render(&$map) {
     // Add the heatmap.js library.
-    if ($path = libraries_get_path('heatmaps.js')) {
+    if ($path = libraries_get_path('heatmap.js')) {
       drupal_add_js($path . '/src/heatmap.js');
       drupal_add_js($path . '/src/heatmap-openlayers.js');
     }

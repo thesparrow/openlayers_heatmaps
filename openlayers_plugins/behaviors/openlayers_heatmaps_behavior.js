@@ -24,11 +24,10 @@ Drupal.openlayers.addBehavior('openlayers_heatmaps_behavior', function (context,
 
   for (var i in layers) {
     var layer = layers[i];
-
     var layersoptions = options['layers'];
+
     var drupalID = layer.drupalID;
     var layeroptions = layersoptions[drupalID];
-
     var radius = parseInt(layeroptions.radius, 10);
     var intensity = parseInt(layeroptions.intensity, 10);
     var distance = parseInt(layeroptions.distance, 10);
@@ -36,11 +35,11 @@ Drupal.openlayers.addBehavior('openlayers_heatmaps_behavior', function (context,
     var opacity = parseFloat(layeroptions.opacity, 10);
     var visibility = layeroptions.hide_original;
     var heatmap_name = layeroptions.heatmap_name;
-    var heatmapdata = { max:0, data:[] };
-    var heatmap;
 
-    heatmap = new OpenLayers.Layer.Heatmap(heatmap_name, map, layer,
-      {visible:true, radius:10},
+    var heatmapdata = { max:0, data:[] };
+
+    var heatmap = new OpenLayers.Layer.Heatmap(heatmap_name, map, layer,
+      {visible:true, radius:radius},
       {isBaseLayer:false, opacity:opacity, projection: map.getProjectionObject()});
 
     var cluster = new OpenLayers.Strategy.Cluster({'distance':distance, 'threshold':threshold});
@@ -66,9 +65,7 @@ Drupal.openlayers.addBehavior('openlayers_heatmaps_behavior', function (context,
     if (visibility == 1) {
       layer.setVisibility(false);
     }
-    map.addLayer(heatmap);
     heatmap.setDataSet(heatmapdata);
+    map.addLayer(heatmap);
   }
-
-
 });
