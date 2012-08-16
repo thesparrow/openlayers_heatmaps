@@ -34,7 +34,7 @@ class openlayers_heatmaps_behavior extends openlayers_behavior {
   /**
    * Form defintion for per map customizations.
    */
-  function options_form($defaults) {
+  function options_form($defaults = array()) {
     $form = parent::options_form(array());
 
     // Only prompt for vector layers.
